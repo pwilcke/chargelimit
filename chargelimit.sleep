@@ -1,0 +1,7 @@
+#!/bin/sh
+# systemd-sleep runs this with "pre" before sleep and "post" after waking. The daemon's
+# one-minute timer does not count time asleep, so without this signal its status file
+# stays as old as the sleep for up to a minute, and the panels report it as not running.
+if [ "$1" = post ]; then
+    exec /usr/bin/systemctl kill --kill-whom=main --signal=SIGUSR1 chargelimit.service
+fi

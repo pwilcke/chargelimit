@@ -25,17 +25,18 @@ One file, stdlib only, in sections read top to bottom:
   limit and checks the readback, sets draining, and writes
   `/run/chargelimit/status.json`. Any error turns draining off.
 - **CLI**: `chargelimit daemon` runs reconcile every minute, and at once on SIGUSR1.
-  A writing command (`set`, `charge-by`, `resume`, `config`) re-runs itself through
-  `pkexec`, reconciles with its change, prints the status, and sends the daemon
-  SIGUSR1. `status` only reads the status file.
+  That wait does not count time asleep, so the sleep hook `chargelimit.sleep` sends
+  SIGUSR1 on wake. A writing command (`set`, `charge-by`, `resume`, `config`) re-runs
+  itself through `pkexec`, reconciles with its change, prints the status, and sends
+  the daemon SIGUSR1. `status` only reads the status file.
 
 Only the daemon may turn draining on. The daemon turns it off at the limit, and its
 unit's `ExecStopPost` turns it off when the daemon stops. So a CLI run can never
 leave the battery draining with nothing to stop it.
 
-`install.sh` installs the program, the Polkit action, and the unit. On a Framework
-it downloads `framework_tool` and checks its digest. It also removes the helper
-this project had before its rename from `battery-limiter-noctalia`.
+`install.sh` installs the program, the Polkit action, the unit, and the sleep hook. On
+a Framework it downloads `framework_tool` and checks its digest. It also removes the
+helper this project had before its rename from `battery-limiter-noctalia`.
 
 ## Noctalia v5
 
