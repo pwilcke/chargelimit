@@ -120,7 +120,7 @@ widget options, like `"displayMode": "icon-always"`, go in
 ```sh
 sudo systemctl disable --now chargelimit.service
 sudo rm -rf /etc/systemd/system/chargelimit.service /usr/local/bin/chargelimit \
-    /usr/local/libexec/chargelimit-framework-tool \
+    /usr/lib/systemd/system-sleep/chargelimit /usr/local/libexec/chargelimit-framework-tool \
     /usr/share/polkit-1/actions/dev.chargelimit.write.policy \
     /var/lib/chargelimit /run/chargelimit
 sudo systemctl daemon-reload

@@ -39,6 +39,7 @@ fi
 put 755 chargelimit /usr/local/bin/chargelimit
 put 644 chargelimit.policy /usr/share/polkit-1/actions/dev.chargelimit.write.policy
 put 644 chargelimit.service /etc/systemd/system/chargelimit.service
+put 755 chargelimit.sleep /usr/lib/systemd/system-sleep/chargelimit
 sudo systemctl daemon-reload
 sudo systemctl enable chargelimit.service
 sudo systemctl restart chargelimit.service
